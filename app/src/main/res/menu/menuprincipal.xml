@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Inicio"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Inicio"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/favoritos"
+        android:icon="@drawable/baseline_favorite_24"
+        android:title="Favoritos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/buscarRuta"
+        android:icon="@drawable/baseline_search_24"
+        android:title="Buscar Ruta"
+        app:showAsAction="never" />
+
+    <item
+        android:title="Comentarios"
+        android:icon="@drawable/baseline_add_comment_24"
+        android:id="@+id/comentarios"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="Ajustes"
+        android:icon="@drawable/baseline_person_24"
+        android:id="@+id/settings"
+        app:showAsAction="never"
+        />
+
+
+
+
+</menu>

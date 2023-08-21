@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegacionprincipal"
+    app:startDestination="@id/pantallaPrincipalFragment">
+
+    <fragment
+        android:id="@+id/pantallaPrincipalFragment"
+        android:name="com.example.bussrute.pantallaPrincipalFragment"
+        android:label="fragment_pantalla_principal"
+        tools:layout="@layout/fragment_pantalla_principal" >
+        <action
+            android:id="@+id/action_pantallaPrincipalFragment_to_favoritosFragment"
+            app:destination="@id/favoritosFragment" />
+        <action
+            android:id="@+id/action_pantallaPrincipalFragment_to_comentariosFragment"
+            app:destination="@id/comentariosFragment" />
+        <action
+            android:id="@+id/action_pantallaPrincipalFragment_to_buscarRutaFragment"
+            app:destination="@id/buscarRutaFragment" />
+        <action
+            android:id="@+id/action_pantallaPrincipalFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comentariosFragment"
+        android:name="com.example.bussrute.comentariosFragment"
+        android:label="fragment_comentarios"
+        tools:layout="@layout/fragment_comentarios" />
+    <fragment
+        android:id="@+id/buscarRutaFragment"
+        android:name="com.example.bussrute.buscarRutaFragment"
+        android:label="fragment_buscar_ruta"
+        tools:layout="@layout/fragment_buscar_ruta" />
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="com.example.bussrute.favoritosFragment"
+        android:label="fragment_favoritos"
+        tools:layout="@layout/fragment_favoritos" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.bussrute.settingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
