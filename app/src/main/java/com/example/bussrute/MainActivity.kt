@@ -1,5 +1,6 @@
 package com.example.bussrute
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.comentarios->{
                     supportActionBar?.setTitle("Comentarios")
+
                     loadFragment(comentariosFragment())
                     true
                 }
@@ -55,4 +57,5 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainerView,fragment)
             .commit()
     }
+
 }

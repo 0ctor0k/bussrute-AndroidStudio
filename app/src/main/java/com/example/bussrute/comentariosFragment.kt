@@ -5,55 +5,82 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.bussrute.modelo.Comentario
+import org.json.JSONException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [comentariosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class comentariosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var listarComentario: MutableList<Comentario>
+    private lateinit var listaViewComentario: ListView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comentarios, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_comentarios, container, false)
+        listarComentario = mutableListOf()
+        listaViewComentario = rootView.findViewById(R.id.listaComentarios)
+        obtenerComentarios()
+        return rootView
     }
-
-    companion object {
         /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment comentariosFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            comentariosFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+         * Funcion que realiza una peticion a la api para obtener todos los comentarios
+         * */
+        private fun obtenerComentarios() {
+            val url = "https://bussrute.pythonanywhere.com/comentario"
+            val queve = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
+            val jsonComentario = JsonArrayRequest(
+                Request.Method.GET, url, null,
+                { response ->
+                    try {
+                        for (i in 0 until response.length()) {
+                            val jsonObject = response.getJSONObject(i)
+                            val id = jsonObject.getInt("id")
+                            val comDescripcion = jsonObject.getString("comDescripcion")
+                            val comValoracion = jsonObject.getString("comValoracion")
+                            val comUsuarioId = jsonObject.getString("comUsuario")
+
+                            // Obtener el nombre de usuario utilizando su ID
+                            obtenerNombreUsuario(comUsuarioId, id, comDescripcion, comValoracion)
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                },
+                { error ->
+                    Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+                })
+            queve.add(jsonComentario)
+        }
+
+        private fun obtenerNombreUsuario(usuarioId: String, id: Int, comDescripcion: String, comValoracion: String) {
+            val urlUsuario = "https://bussrute.pythonanywhere.com/usuario/$usuarioId"
+            val queveUsuario = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
+            val jsonUsuario = JsonObjectRequest(
+                Request.Method.GET, urlUsuario, null,
+                { response ->
+                    try {
+                        val nombreUsuario = response.getString("usuNombre")
+                        val comentario = Comentario(id, comDescripcion, comValoracion, nombreUsuario)
+                        listarComentario.add(comentario)
+
+                        val adaptador = Adaptador(requireContext(), R.layout.layoutcomentario, listarComentario)
+                        listaViewComentario.adapter = adaptador
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                },
+                { error ->
+                    Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+                })
+            queveUsuario.add(jsonUsuario)
+        }
 }
+
