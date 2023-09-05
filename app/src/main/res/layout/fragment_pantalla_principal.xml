@@ -5,18 +5,69 @@
     android:layout_height="match_parent"
     tools:context=".pantallaPrincipalFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Bienvenidos a Bussrute "
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="20sp"
-        android:textAlignment="center"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+    <Spinner
+        android:id="@+id/cbRutas"
+        android:layout_width="231dp"
+        android:layout_height="43dp"
+        android:layout_marginHorizontal="90sp"
+        android:layout_marginVertical="470sp" />
+
+    <Button
+        android:id="@+id/btnConsultar"
+        android:layout_width="231dp"
+        android:layout_height="43dp"
+        android:layout_marginHorizontal="90sp"
+        android:layout_marginVertical="520sp"
+        android:text="Button"
+        android:background="@drawable/button_background"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/txtNombreRuta"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginVertical="590sp"
+        android:text="Ruta" />
+
+    <EditText
+        android:id="@+id/txtEmpresa"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="240sp"
+        android:layout_marginVertical="590sp"
+        android:text="Empresa" />
+
+    <EditText
+        android:id="@+id/txtColor"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="240sp"
+        android:layout_marginVertical="660sp"
+        android:text="Color" />
+
+    <EditText
+        android:id="@+id/txtHorario"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginVertical="660sp"
+        android:text="Precio" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="366dp"
+        android:layout_marginVertical="70sp" />
+
 
 </FrameLayout>
