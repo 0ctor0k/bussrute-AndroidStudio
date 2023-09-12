@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="280dp"
+        android:layout_height="196dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_app_foreground" />
+
+    <TextView
+        android:id="@+id/welcomeMessageTextView"
+        android:layout_width="276dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="28dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="REGISTRAR CUENTA"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tituloNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="28dp"
+        android:text="Nombre de usuario"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeMessageTextView" />
+
+    <TextView
+        android:id="@+id/tituloEmailUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="32dp"
+        android:text="Correo Electronico"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreUsuario" />
+
+    <EditText
+        android:id="@+id/txtCreaContraseña"
+        android:layout_width="308dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:hint="Ingrese su contraseña"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloPassword" />
+
+    <TextView
+        android:id="@+id/tituloPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="28dp"
+        android:text="Contraseña"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreoUsuario" />
+
+    <EditText
+        android:id="@+id/txtCorreoUsuario"
+        android:layout_width="307dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="Ingrese su correo electrónico"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEmailUsuario" />
+
+    <EditText
+        android:id="@+id/txtNombreUsuario"
+        android:layout_width="309dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="28dp"
+        android:hint="Ingrese su nombre de usuario"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloNombre" />
+
+    <Button
+        android:id="@+id/btnVerificarCuenta"
+        android:layout_width="167dp"
+        android:layout_height="45dp"
+        android:text="Verificar Cuenta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCreaContraseña" />
+</androidx.constraintlayout.widget.ConstraintLayout>

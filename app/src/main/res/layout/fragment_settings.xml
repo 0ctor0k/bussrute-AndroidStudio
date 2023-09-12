@@ -6,17 +6,25 @@
     tools:context=".settingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Esta ubicado en la seccion de Ajustes "
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="20sp"
-        android:textAlignment="center"
-        />
+        android:id="@+id/txtNombredelUsuario"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginVertical="300sp"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnCerrar"
+        android:layout_width="231dp"
+        android:layout_height="43dp"
+        android:layout_marginHorizontal="90sp"
+        android:layout_marginVertical="520sp"
+        android:text="Cerrar Sesion"
+        android:background="@drawable/button_background"
+        android:textColor="#FFFFFF" />
+
+
 
 </FrameLayout>

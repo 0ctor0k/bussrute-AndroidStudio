@@ -49,4 +49,6 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     implementation ("com.android.volley:volley:1.2.1")
+    implementation ("com.google.android.gms:play-services-auth:20.1.0")
+    implementation ("com.google.android.gms:play-services-auth-api-phone:17.5.0")
 }
