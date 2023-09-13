@@ -54,7 +54,7 @@ class inicio_sesion : AppCompatActivity() {
         }
         val recuperarContraseña: TextView = findViewById(R.id.txtRecuperarContraseña)
         recuperarContraseña.setOnClickListener {
-            val intent = Intent(this, CrearCuenta::class.java)
+            val intent = Intent(this, RecuperarContraseña::class.java)
             startActivity(intent)
         }
 
