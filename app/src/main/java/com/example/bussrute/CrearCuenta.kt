@@ -1,14 +1,17 @@
 package com.example.bussrute
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import java.security.MessageDigest
@@ -31,9 +34,15 @@ class CrearCuenta : AppCompatActivity() {
         btnVerificarCuenta = findViewById(R.id.btnVerificarCuenta)
 
 
-        btnVerificarCuenta.setOnClickListener{ agregarUsuario() }
+        btnVerificarCuenta.setOnClickListener {
+            agregarUsuario()
+        }
 
     }
+    fun generarCodigoVerificacion(): String {
+        return (100000..999999).random().toString()
+    }
+
     fun hashPassword(password: String): String {
         val messageDigest = MessageDigest.getInstance("SHA-256")
         val hashBytes = messageDigest.digest(password.toByteArray())
@@ -44,41 +53,83 @@ class CrearCuenta : AppCompatActivity() {
         txtCorreoElectronico.text.clear()
         txtContraseña.text.clear()
     }
-
     private fun agregarUsuario() {
-        val url = url + "usuario"
-        val queue = Volley.newRequestQueue(this)
-        val progresBar = ProgressDialog.show(this, "Enviando Datos...", "Espere por favor")
-
+        val nombreUsuario = txtNombreUsuario.text.toString()
+        val correoElectronico = txtCorreoElectronico.text.toString()
         val contraseña = txtContraseña.text.toString()
-        val hashedPassword = hashPassword(contraseña)
+        if (nombreUsuario.isEmpty() || correoElectronico.isEmpty() || contraseña.isEmpty()) {
+            Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (nombreUsuario.length < 6) {
+            Toast.makeText(this, "El nombre de usuario tiene que ser mínimo de 6 caracteres", Toast.LENGTH_LONG).show()
+            return
+        }
+        val url = url + "usuario"
+        // Primero, verifica si el nombre de usuario y el correo electrónico ya existen
+        val request = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                for (i in 0 until response.length()) {
+                    val usuario = response.getJSONObject(i)
+                    if (usuario.getString("usuNombre") == nombreUsuario) {
+                        // Si el nombre de usuario ya existe, muestra un mensaje y termina la función
+                        Toast.makeText(this, "El nombre de usuario ya existe, por favor utiliza otro", Toast.LENGTH_LONG).show()
+                        return@JsonArrayRequest
+                    }
+                    if (usuario.getString("usuCorreo") == correoElectronico) {
+                        // Si el correo electrónico ya existe, muestra un mensaje y termina la función
+                        Toast.makeText(this, "El correo electrónico ya está en uso, por favor utiliza otro", Toast.LENGTH_LONG).show()
+                        return@JsonArrayRequest
+                    }
+                }
+                val hashedPassword = hashPassword(contraseña)
+                // Si el nombre de usuario y el correo electrónico no existen, guarda los datos del usuario en las preferencias compartidas
+                val sharedPref = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putString("usuNombre", nombreUsuario)
+                    putString("usuCorreo", correoElectronico)
+                    putString("usuContraseña", hashedPassword)
+                    apply()
+                }
+                enviarCorreoVerificacion()
+                val intent = Intent(this, VerificarCorreo::class.java)
+                startActivity(intent)
+                finishAffinity()
+            },
+            { error ->
+                // Manejo de errores
+                Toast.makeText(this, "Error${error.message}", Toast.LENGTH_LONG).show()
+            }
+        )
+        Volley.newRequestQueue(this).add(request)
+    }
+    private fun enviarCorreoVerificacion() {
+        val url = url+"enviarCorreoMovil/"
+        val queue = Volley.newRequestQueue(this)
+        val parametros = HashMap<String, String>()
+        parametros.put("correoUsuarioIngresado", txtCorreoElectronico.text.toString())
+        val codigoVerificacion = generarCodigoVerificacion()
+        parametros.put("codigoVerificacionMovil", codigoVerificacion)
 
+        // Guarda el código de verificación en las preferencias compartidas
+        val sharedPref = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("codigoVerificacion", codigoVerificacion)
+            apply()
+        }
         val resultadoPost = object : StringRequest(
             Request.Method.POST,url,
             Response.Listener<String>{ response ->
-                progresBar.dismiss()
-                Toast.makeText(this, "Usuario agregado correctamente", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, inicio_sesion::class.java)
-                startActivity(intent)
-                limpiar()
-
+                Toast.makeText(this, "Correo de verificación enviado", Toast.LENGTH_LONG).show()
             }, Response.ErrorListener{ error ->
-                progresBar.dismiss()
-                Toast.makeText(this, "Error${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error al enviar el correo de verificación: ${error.message}", Toast.LENGTH_LONG).show()
             }){
             override fun getParams(): MutableMap<String, String> {
-                val parametros = HashMap<String, String>()
-                parametros.put("usuNombre", txtNombreUsuario.text.toString())
-                parametros.put("usuCorreo", txtCorreoElectronico.text.toString())
-                parametros.put("usuPassword", hashedPassword)
-
-                parametros.put("usuRol", "2")
-
-
                 return parametros
             }
         }
         queue.add(resultadoPost)
-
     }
+
 }

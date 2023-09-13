@@ -31,6 +31,11 @@
             android:exported="false">
 
         </activity>
+        <activity
+            android:name=".VerificarCorreo"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>
