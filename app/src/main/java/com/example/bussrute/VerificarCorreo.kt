@@ -60,6 +60,14 @@ class VerificarCorreo : AppCompatActivity() {
                     }
 
                     Toast.makeText(this, "Código de verificación correcto, su usuario ha sido creado exitosamente", Toast.LENGTH_LONG).show()
+                    val sharedPref = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+                    with (sharedPref.edit()) {
+                        remove("usuNombre")
+                        remove("usuCorreo")
+                        remove("usuContraseña")
+                        remove("codigoVerificacion")
+                        apply()
+                    }
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()

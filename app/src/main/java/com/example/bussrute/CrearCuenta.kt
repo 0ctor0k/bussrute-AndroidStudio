@@ -53,6 +53,10 @@ class CrearCuenta : AppCompatActivity() {
         txtCorreoElectronico.text.clear()
         txtContraseña.text.clear()
     }
+    private fun esCorreoValido(correo: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()
+    }
+
     private fun agregarUsuario() {
         val nombreUsuario = txtNombreUsuario.text.toString()
         val correoElectronico = txtCorreoElectronico.text.toString()
@@ -63,6 +67,10 @@ class CrearCuenta : AppCompatActivity() {
         }
         if (nombreUsuario.length < 6) {
             Toast.makeText(this, "El nombre de usuario tiene que ser mínimo de 6 caracteres", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!esCorreoValido(correoElectronico)) {
+            Toast.makeText(this, "Por favor, ingresa un correo electrónico válido.", Toast.LENGTH_LONG).show()
             return
         }
         val url = url + "usuario"

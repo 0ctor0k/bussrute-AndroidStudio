@@ -52,9 +52,21 @@ class inicio_sesion : AppCompatActivity() {
             finish()
             return
         }
+        val recuperarContraseña: TextView = findViewById(R.id.txtRecuperarContraseña)
+        recuperarContraseña.setOnClickListener {
+            val intent = Intent(this, CrearCuenta::class.java)
+            startActivity(intent)
+        }
+
         val createAccountTextView: TextView = findViewById(R.id.createAccountTextView)
         createAccountTextView.setOnClickListener {
-            val intent = Intent(this, CrearCuenta::class.java)
+            val sharedPref = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+            val codigoVerificacion = sharedPref.getString("codigoVerificacion", null)
+            val intent = if (codigoVerificacion != null) {
+                Intent(this, VerificarCorreo::class.java)
+            } else {
+                Intent(this, CrearCuenta::class.java)
+            }
             startActivity(intent)
         }
     }
