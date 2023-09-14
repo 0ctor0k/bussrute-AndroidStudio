@@ -25,6 +25,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthCredential
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.ktx.Firebase
 import org.json.JSONObject
 import java.security.MessageDigest
 
@@ -32,7 +36,9 @@ class inicio_sesion : AppCompatActivity() {
     lateinit var  txtCorreoONombre: EditText
     lateinit var  txtContraseña: EditText
     lateinit var  btnInicio:Button
+    lateinit var btnGoogle: Button
     private var url ="https://bussrute.pythonanywhere.com/"
+    private val GOOGLE = 170
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,7 @@ class inicio_sesion : AppCompatActivity() {
         txtCorreoONombre = findViewById(R.id.txtCorreoONombre)
         txtContraseña = findViewById(R.id.txtContraseña)
         btnInicio = findViewById(R.id.btnInicio)
+        btnGoogle = findViewById(R.id.btnGoogle)
 
 
         btnInicio.setOnClickListener{iniciarSesion()}
@@ -69,7 +76,73 @@ class inicio_sesion : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        btnGoogle.setOnClickListener {
+
+            val googleConfirmacion = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.google_client_id))
+                .requestEmail()
+                .build()
+
+            val googleCliente = GoogleSignIn.getClient(this, googleConfirmacion)
+            googleCliente.signOut()
+            startActivityForResult(googleCliente.signInIntent, GOOGLE )
+
+        }
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if(account != null){
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(){
+                        if(it.isSuccessful){
+                            val url = url + "usuario"
+                            val request = JsonArrayRequest(
+                                Request.Method.GET, url, null,
+                                { response ->
+                                    for (i in 0 until response.length()) {
+                                        val usuario = response.getJSONObject(i)
+                                        if (usuario.getString("usuCorreo") == account.email) {
+                                            Toast.makeText(this, "Has iniciado correctamente", Toast.LENGTH_LONG).show()
+                                            val sharedPreferences = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+                                            val editor = sharedPreferences.edit()
+                                            editor.putString("idUsuario", usuario.getString("id"))
+                                            editor.apply()
+                                            val intent = Intent(this, MainActivity::class.java)
+                                            startActivity(intent)
+                                            return@JsonArrayRequest
+                                        }
+                                    }
+                                    // Si el correo electrónico no existe en la base de datos, guarda el correo electrónico en SharedPreferences y redirige al usuario a CrearCuentaGoogle
+                                    val sharedPreferences = getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+                                    val editor = sharedPreferences.edit()
+                                    editor.putString("correoUsuario", account.email)
+                                    editor.apply()
+                                    val intent = Intent(this, CrearCuentaGoogle::class.java)
+                                    startActivity(intent)
+                                },
+                                { error ->
+                                    // Maneja los errores aquí
+                                }
+                            )
+                            Volley.newRequestQueue(this).add(request)
+                        }else{
+                            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+            } catch (e: ApiException){
+                Log.e(TAG, "Error de inicio de sesión con Google: " + e.statusCode)
+            }
+        }
+    }
+
 
     fun hashPassword(password: String): String {
         val messageDigest = MessageDigest.getInstance("SHA-256")
