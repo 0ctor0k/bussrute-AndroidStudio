@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "805799032471-pus8e8914ap6de03rtb3atai8udtv1c1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bussrute",
+            "certificate_hash": "97793beee2eece98267ba880bd434c8edd905134"
+          }
+        },
+        {
           "client_id": "805799032471-kr76k8kr1o84dinhb3s068tcdveon1v7.apps.googleusercontent.com",
           "client_type": 3
         }
