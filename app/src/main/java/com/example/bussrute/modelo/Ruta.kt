@@ -1,4 +1,4 @@
-package com.example.elmapa2.modelo
+package com.example.bussrute.modelo
 
 class Ruta constructor(id:Int, rutNumero: String,rutPrecio: String,rutEmpresa: String) {
     var rutNumero = rutNumero
