@@ -25,7 +25,7 @@
     var control;
     var polyline;
 
-    var map = L.map('map').setView([2.9341049606236704, -75.28170112926662], 13);
+    var map = L.map('map').setView([2.9341049606236704, -75.28170112926662], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
         maxZoom: 18
@@ -63,6 +63,17 @@
         control.setWaypoints(waypoints);
 
         control.hide();
+
+        // Añade un retraso antes de ajustar los límites del mapa (por ejemplo, 1 segundo)
+            setTimeout(function () {
+                var route = control.getPlan().routes[0];
+                if (route) {
+                    var bounds = route.getBounds();
+                    map.fitBounds(bounds);
+                }
+            }, 1000); // 1000 milisegundos = 1 segundo
+
+
     }
 </script>
 

@@ -2,6 +2,7 @@ package com.example.bussrute
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
@@ -25,6 +26,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.bussrute.modelo.Ruta
 import com.example.bussrute.modelo.DetalleRuta
@@ -45,11 +47,13 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
     private lateinit var webView: WebView
     lateinit var contenido: Context
     lateinit var txtNombreRuta: EditText
+    lateinit var txtIdRuta: EditText
     lateinit var txtColorRuta: EditText
     lateinit var txtHorarioRuta: EditText
     lateinit var txtEmpresaRuta: EditText
     lateinit var cbRuta: Spinner
     lateinit var btnConsultar: Button
+    lateinit var btnFavorito: Button
     lateinit var listaRutas: MutableList<Ruta>
     private val coordenadas = mutableListOf<DetalleRuta>()
     private var idRuta: Int = 0
@@ -59,6 +63,8 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         contenido = requireContext()
+        txtIdRuta = requireView().findViewById(R.id.txtIdRuta)
+        txtIdRuta.isEnabled = false
         txtNombreRuta = requireView().findViewById(R.id.txtNombreRuta)
         txtNombreRuta.isEnabled = false
         txtEmpresaRuta = requireView().findViewById(R.id.txtEmpresa)
@@ -69,6 +75,11 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
         txtColorRuta.isEnabled = false
 
         cbRuta = requireView().findViewById(R.id.cbRutas)
+        val rutaFavorita = arguments?.getString("ruta")
+        if (rutaFavorita != null && rutaFavorita.isNotEmpty()){
+            Toast.makeText(requireContext(), "Mostrando Ruta", Toast.LENGTH_SHORT).show()
+            vizualizarRuta(rutaFavorita)
+        }
 
         obtenerRutas()
 
@@ -101,6 +112,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
 
         cbRuta = requireView().findViewById(R.id.cbRutas)
         btnConsultar = requireView().findViewById(R.id.btnConsultar)
+        btnFavorito = requireView().findViewById(R.id.btnFavorito)
         listaRutas = mutableListOf<Ruta>()
 
 
@@ -120,7 +132,8 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
             }
         }
 
-
+        btnFavorito.setOnClickListener {
+            GuardarFavorito() }
         btnConsultar.setOnClickListener {
             consultar() }
 
@@ -147,6 +160,39 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
     }
 
 
+    private fun vizualizarRuta(numeroRuta: String){
+        val url = urlBase + "ruta/$numeroRuta"
+        val queue = Volley.newRequestQueue(requireContext())
+        val jsonRutasViz = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                obtenerDetalleRutas(response.getString("id"))
+                txtEmpresaRuta.setText(response.getString("rutEmpresa"))
+                txtNombreRuta.setText(response.getString("rutNumero"))
+                txtHorarioRuta.setText(response.getString("rutPrecio"))
+                txtIdRuta.setText(response.getString("id"))
+                if (response.getString("rutEmpresa") == "Coomotor"){
+                    txtColorRuta.setText("Azul")
+                }
+                if (response.getString("rutEmpresa") == "Cootranshuila"){
+                    txtColorRuta.setText("Verde Claro con Blanco")
+                }
+                if (response.getString("rutEmpresa") == "Flotahuila"){
+                    txtColorRuta.setText("Gris / Plateado")
+                }
+                if (response.getString("rutEmpresa") == "Cootransneiva"){
+                    txtColorRuta.setText("Blanco con Rojo")
+                }
+                if (response.getString("rutEmpresa") == "AutoBuses S.A.S"){
+                    txtColorRuta.setText("Verde Oscuro")
+                }
+
+            }, Response.ErrorListener { error ->
+                Toast.makeText(contenido, error.toString(), Toast.LENGTH_SHORT).show()
+                Log.e("Error: ", error.toString())
+            })
+        queue.add(jsonRutasViz)
+    }
     private fun consultar(){
         recargarWebView()
         val numeroRuta = cbRuta.selectedItem
@@ -159,6 +205,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 txtEmpresaRuta.setText(response.getString("rutEmpresa"))
                 txtNombreRuta.setText(response.getString("rutNumero"))
                 txtHorarioRuta.setText(response.getString("rutPrecio"))
+                txtIdRuta.setText(response.getString("id"))
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")
                 }
@@ -252,6 +299,60 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
         queue.add(jsonDetalleRuta)
     }
 
+    private fun GuardarFavorito() {
+        val numeroRuta = txtIdRuta.text
+        var existe = ""
+        val sharedPreferences = this.requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+        val idUsuario = sharedPreferences.getString("idUsuario", "")
+        val url = "https://bussrute.pythonanywhere.com/favorito/$idUsuario"
+        val queve = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
+        val jsonFavorito = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val id = jsonObject.getInt("id")
+                        val favRuta = jsonObject.getString("favRuta")
+                        val favUsuario = jsonObject.getString("favUsuario")
+                        if (favRuta == numeroRuta.toString()){
+                            existe = "true"
+                        }
+                    }
 
+                    if (existe == "true"){
+                        Toast.makeText(requireContext(), "La Ruta Seleccionada Ya Se Encuentra Guardada", Toast.LENGTH_LONG).show()
+                    }else{
+                        val url2 = "https://bussrute.pythonanywhere.com/favorito"
+                        val queue = Volley.newRequestQueue(requireContext())
+                        val progresBar = ProgressDialog.show(requireContext(), "Guardando Ruta...", "Espere por favor")
+                        val resultadoPost = object : StringRequest(
+                            com.android.volley.Request.Method.POST, url2,
+                            Response.Listener<String> { response ->
+                                progresBar.dismiss()
+                                Toast.makeText(requireContext(), "Ruta Añadida a Favoritos", Toast.LENGTH_LONG).show()
+                            }, Response.ErrorListener { error ->
+                                progresBar.dismiss()
+                                Toast.makeText(requireContext(), "Error ${error.message}", Toast.LENGTH_LONG).show()
+                            }) {
+                            override fun getParams(): MutableMap<String, String>? {
+                                val parametros = HashMap<String, String>()
+                                parametros.put("favRuta", numeroRuta.toString())
+                                parametros.put("favUsuario", idUsuario.toString())
+                                return parametros
+                            }
+                        }
+                        queue.add(resultadoPost)
+                    }
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(requireContext(), "Error ${error.message}", Toast.LENGTH_LONG).show()
+            })
+        queve.add(jsonFavorito)
+    }
 
 }

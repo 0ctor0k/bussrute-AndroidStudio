@@ -16,9 +16,9 @@
 
     <item
         android:id="@+id/buscarRuta"
-        android:icon="@drawable/baseline_search_24"
-        android:title="Buscar Ruta"
-        app:showAsAction="never" />
+        android:icon="@drawable/logo_empresa3_0"
+        app:showAsAction="never"
+        android:title="BussRute" />
 
     <item
         android:title="Comentarios"

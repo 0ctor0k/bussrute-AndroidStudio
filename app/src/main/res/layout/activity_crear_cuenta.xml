@@ -105,6 +105,8 @@
         android:layout_width="167dp"
         android:layout_height="45dp"
         android:text="Verificar Cuenta"
+        android:background="@drawable/button_background"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

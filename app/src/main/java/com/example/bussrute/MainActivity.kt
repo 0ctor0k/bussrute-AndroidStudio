@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         btnMenu.setOnItemReselectedListener{MenuItem->
             when (MenuItem.itemId) {
                 R.id.Inicio->{
-                    supportActionBar?.setTitle("bussrute")
+                    supportActionBar?.setTitle("Buscar Ruta")
                     loadFragment(pantallaPrincipalFragment())
                     true
                 }
@@ -29,11 +29,6 @@ class MainActivity : AppCompatActivity() {
                     supportActionBar?.setTitle("Comentarios")
 
                     loadFragment(comentariosFragment())
-                    true
-                }
-                R.id.buscarRuta->{
-                    supportActionBar?.setTitle("Buscar Ruta")
-                    loadFragment(buscarRutaFragment())
                     true
                 }
                 R.id.favoritos->{

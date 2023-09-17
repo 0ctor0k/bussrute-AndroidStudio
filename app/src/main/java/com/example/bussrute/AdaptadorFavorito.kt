@@ -1,14 +1,19 @@
 package com.example.bussrute
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.bussrute.modelo.Ruta
-
+import androidx.appcompat.app.AppCompatActivity
 class AdaptadorFavorito: BaseAdapter {
     var contexto: Context
     var layout: Int = 0
@@ -54,8 +59,58 @@ class AdaptadorFavorito: BaseAdapter {
         val rutNumero: TextView = v.findViewById(R.id.txtNumeroRuta)
         rutNumero.text = listaFavorito[posicion].rutNumero
 
+        val item = getItem(posicion)
+        val rutaId = listaFavorito[posicion].id
+        // Configurar otros elementos de la vista aquí
+
+        // Agregar un botón para eliminar y configurar un clic en él
+        val eliminarButton = v.findViewById<Button>(R.id.btnEliminarRuta)
+        val vizualizarRuta = v.findViewById<Button>(R.id.btnVizualizarRuta)
+
+        vizualizarRuta.setOnClickListener {
+            // Crear una instancia del fragmento y pasar el dato como argumento
+            val fragment = pantallaPrincipalFragment()
+
+            val bundle = Bundle()
+            bundle.putString("ruta", "$item") // Cambia "Valor que deseas pasar" al dato que deseas llevar contigo
+            fragment.arguments = bundle
+
+            // Realizar la transacción del fragmento
+            val fragmentManager = (contexto as AppCompatActivity).supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+            transaction.replace(R.id.pantallaFavorito, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        eliminarButton.setOnClickListener {
+            val sharedPreferences = contexto.getSharedPreferences("MyApp", Context.MODE_PRIVATE)
+            val idUsuario = sharedPreferences.getString("idUsuario", "")
+            val url = "https://bussrute.pythonanywhere.com/favoritoAndroid/$idUsuario/$rutaId"
+            val queue = Volley.newRequestQueue(contexto)
+            val resultadoPost = object : StringRequest(
+                Method.DELETE,url,
+                Response.Listener { response ->
+                    Toast.makeText(contexto, "Favorito Eliminado", Toast.LENGTH_SHORT).show()
+                    // Copia listaFavorito a una MutableList
+                    val listaFavoritoMutable = listaFavorito.toMutableList()
+
+                    // Elimina la ruta de la lista cuando se hace clic en el botón
+                    listaFavoritoMutable.remove(item)
+                    // Asigna la lista modificada de vuelta a listaFavorito
+                    listaFavorito = listaFavoritoMutable
+
+                    notifyDataSetChanged()
+                },
+                Response.ErrorListener { error ->
+                    Toast.makeText(contexto, "$error", Toast.LENGTH_SHORT).show()
+                }
+            ){
+            }
+            queue.add(resultadoPost)
+
+        }
         return v;
 
     }
-
 }

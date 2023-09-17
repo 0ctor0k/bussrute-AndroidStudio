@@ -66,6 +66,8 @@
         android:layout_height="42dp"
         android:layout_marginTop="60dp"
         android:text="Iniciar sesión"
+        android:background="@drawable/button_background"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtContraseña" />
@@ -90,6 +92,8 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="4dp"
         android:text="Google"
+        android:background="#DC3545"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toStartOf="@+id/loginWithFacebookButton"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
