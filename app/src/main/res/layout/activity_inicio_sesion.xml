@@ -85,41 +85,29 @@
     <!-- Botón de inicio de sesión con Google -->
 
     <!-- Botón de inicio de sesión con Facebook -->
-    <Button
-        android:id="@+id/btnGoogle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="4dp"
-        android:text="Google"
-        android:background="#DC3545"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/loginWithFacebookButton"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orLoginWithTextView" />
 
     <Button
-        android:id="@+id/loginWithFacebookButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="56dp"
-        android:text="Facebook"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnGoogle"
+        android:layout_width="215dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="32dp"
+        android:background="#DC3545"
+        android:text="Google"
+        android:textColor="#FFFFFF"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/btnGoogle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orLoginWithTextView" />
 
     <TextView
         android:id="@+id/noAccountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:text="¿Todavía no tienes una cuenta?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginWithFacebookButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
 
     <TextView
         android:id="@+id/createAccountTextView"

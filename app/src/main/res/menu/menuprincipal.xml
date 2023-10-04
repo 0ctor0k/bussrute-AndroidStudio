@@ -15,25 +15,15 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/buscarRuta"
-        android:icon="@drawable/logo_empresa3_0"
-        app:showAsAction="never"
-        android:title="BussRute" />
-
-    <item
         android:title="Comentarios"
         android:icon="@drawable/baseline_add_comment_24"
         android:id="@+id/comentarios"
         app:showAsAction="never"
         />
     <item
-        android:title="Ajustes"
-        android:icon="@drawable/baseline_person_24"
         android:id="@+id/settings"
-        app:showAsAction="never"
-        />
-
-
-
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="Cerrar Sesion"
+        app:showAsAction="never" />
 
 </menu>
