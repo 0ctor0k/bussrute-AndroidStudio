@@ -30,57 +30,96 @@ class comentariosFragment : Fragment() {
         obtenerComentarios()
         return rootView
     }
-        /**
-         * Funcion que realiza una peticion a la api para obtener todos los comentarios
-         * */
-        private fun obtenerComentarios() {
-            val url = "https://bussrute.pythonanywhere.com/comentario"
-            val queve = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
-            val jsonComentario = JsonArrayRequest(
-                Request.Method.GET, url, null,
-                { response ->
-                    try {
-                        for (i in 0 until response.length()) {
-                            val jsonObject = response.getJSONObject(i)
-                            val id = jsonObject.getInt("id")
-                            val comDescripcion = jsonObject.getString("comDescripcion")
-                            val comValoracion = jsonObject.getString("comValoracion")
-                            val comUsuarioId = jsonObject.getString("comUsuario")
-
-                            // Obtener el nombre de usuario utilizando su ID
-                            obtenerNombreUsuario(comUsuarioId, id, comDescripcion, comValoracion)
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
+    /**
+     * Funcion que realiza una peticion a la api para obtener todos los comentarios
+     * */
+    private fun obtenerComentarios() {
+        val url = "https://bussrute.pythonanywhere.com/comentario"
+        val queve = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
+        val jsonComentario = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val id = jsonObject.getInt("id")
+                        val comDescripcion = jsonObject.getString("comDescripcion")
+                        val comValoracion = jsonObject.getString("comValoracion")
+                        val comUsuarioId = jsonObject.getString("comUsuario")
+                        val comRuta = jsonObject.getString("comRuta")
+                        // Obtener el nombre de usuario utilizando su ID
+                        obtenerNombreUsuario(comUsuarioId, id, comDescripcion, comValoracion, comRuta)
                     }
-                },
-                { error ->
-                    Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
-                })
-            queve.add(jsonComentario)
-        }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+            })
+        queve.add(jsonComentario)
+    }
 
-        private fun obtenerNombreUsuario(usuarioId: String, id: Int, comDescripcion: String, comValoracion: String) {
-            val urlUsuario = "https://bussrute.pythonanywhere.com/usuario/$usuarioId"
-            val queveUsuario = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
-            val jsonUsuario = JsonObjectRequest(
-                Request.Method.GET, urlUsuario, null,
+    private fun obtenerNombreUsuario(usuarioId: String, id: Int, comDescripcion: String, comValoracion: String, rutaId: String) {
+        val urlUsuario = "https://bussrute.pythonanywhere.com/usuario/$usuarioId"
+        val queveUsuario = Volley.newRequestQueue(requireContext()) // Cambio a requireContext()
+        val jsonUsuario = JsonObjectRequest(
+            Request.Method.GET, urlUsuario, null,
+            { response ->
+                try {
+                    val nombreUsuario = response.getString("usuNombre")
+                    // Llama a obtenerRuta después de obtener el nombre del usuario
+                    obtenerRuta(rutaId, id, comDescripcion, comValoracion, nombreUsuario)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+            })
+        queveUsuario.add(jsonUsuario)
+    }
+
+    private fun obtenerRuta(rutaId: String?, id: Int, comDescripcion: String, comValoracion: String, comUsuario: String) {
+        if (rutaId != null && rutaId != "null" && isAdded) {
+            val urlRuta = "https://bussrute.pythonanywhere.com/rutaAndroid/$rutaId"
+            val queveRuta = Volley.newRequestQueue(requireContext())
+            val jsonRuta = JsonObjectRequest(
+                Request.Method.GET, urlRuta, null,
                 { response ->
                     try {
-                        val nombreUsuario = response.getString("usuNombre")
-                        val comentario = Comentario(id, comDescripcion, comValoracion, nombreUsuario)
+                        val comRuta = "Ruta: " + response.optString("rutNumero", "global")
+
+                        val comentario = Comentario(id, comDescripcion, comValoracion, comUsuario, comRuta)
                         listarComentario.add(comentario)
 
-                        val adaptador = Adaptador(requireContext(), R.layout.layoutcomentario, listarComentario)
+                        // Obtener los últimos 20 comentarios
+                        val ultimosComentarios = listarComentario.takeLast(20)
+
+                        val adaptador = Adaptador(requireContext(), R.layout.layoutcomentario, ultimosComentarios)
                         listaViewComentario.adapter = adaptador
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
                 },
                 { error ->
-                    Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), error.message ?: "Se produjo un error desconocido", Toast.LENGTH_LONG).show()
                 })
-            queveUsuario.add(jsonUsuario)
+            queveRuta.add(jsonRuta)
+        } else {
+            // Manejar el caso en que rutaId es null o "null" o el fragmento no está adjunto a una actividad
+            val comRuta = "global"
+
+            val comentario = Comentario(id, comDescripcion, comValoracion, comUsuario, comRuta)
+            listarComentario.add(comentario)
+
+            // Obtener los últimos 20 comentarios
+            val ultimosComentarios = listarComentario.takeLast(20)
+
+            val adaptador = Adaptador(requireContext(), R.layout.layoutcomentario, ultimosComentarios)
+            listaViewComentario.adapter = adaptador
         }
+    }
+
 }
 

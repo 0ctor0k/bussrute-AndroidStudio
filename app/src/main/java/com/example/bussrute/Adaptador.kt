@@ -53,6 +53,8 @@ class Adaptador: BaseAdapter {
         comValoracion.text = listaComentario[posicion].comValoracion.toString()
         val comUsuario: TextView = v.findViewById(R.id.comUsuario)
         comUsuario.text = listaComentario[posicion].comUsuario.toString()
+        val comRuta: TextView = v.findViewById(R.id.comRuta)
+        comRuta.text = listaComentario[posicion].comRuta
         val foto: ImageView = v.findViewById(R.id.imgFoto)
         foto.setImageResource(R.drawable.user)
 
