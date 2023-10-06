@@ -169,7 +169,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 obtenerDetalleRutas(response.getString("id"))
                 txtEmpresaRuta.setText(response.getString("rutEmpresa"))
                 txtNombreRuta.setText(response.getString("rutNumero"))
-                txtHorarioRuta.setText(response.getString("rutPrecio"))
+                txtHorarioRuta.setText(response.getString("rutPrecio")+" COP");
                 txtIdRuta.setText(response.getString("id"))
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")
@@ -204,7 +204,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 obtenerDetalleRutas(response.getString("id"))
                 txtEmpresaRuta.setText(response.getString("rutEmpresa"))
                 txtNombreRuta.setText(response.getString("rutNumero"))
-                txtHorarioRuta.setText(response.getString("rutPrecio"))
+                txtHorarioRuta.setText(response.getString("rutPrecio")+" COP")
                 txtIdRuta.setText(response.getString("id"))
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")

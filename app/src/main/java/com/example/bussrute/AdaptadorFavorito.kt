@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Response
@@ -58,6 +59,8 @@ class AdaptadorFavorito: BaseAdapter {
         rutPrecio.text = listaFavorito[posicion].rutPrecio
         val rutNumero: TextView = v.findViewById(R.id.txtNumeroRuta)
         rutNumero.text = listaFavorito[posicion].rutNumero
+        val foto: ImageView = v.findViewById(R.id.imgFav)
+        foto.setImageResource(R.drawable.user)
 
         val item = getItem(posicion)
         val rutaId = listaFavorito[posicion].id

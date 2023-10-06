@@ -1,132 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pantallaPrincipalRuta"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pantallaPrincipalFragment">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white">
+    <FrameLayout
+        android:id="@+id/pantallaPrincipalRuta"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Spinner
-            android:id="@+id/cbRutas"
-            android:layout_width="218dp"
-            android:layout_height="35dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/webView"
-            app:layout_constraintVertical_bias="0.037" />
-
-        <Button
-            android:id="@+id/btnConsultar"
-            android:layout_width="218dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="19dp"
-            android:background="@drawable/button_background"
-            android:text="Consultar"
-            android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbRutas"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/txtNombreRuta"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="31dp"
-            android:text="Ruta"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnConsultar"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/txtEmpresa"
-            android:layout_width="180dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="30dp"
-            android:text="Empresa"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.926"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnConsultar"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/txtColor"
-            android:layout_width="181dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="17dp"
-            android:text="Color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.926"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmpresa"
-            app:layout_constraintVertical_bias="0.004" />
-
-        <EditText
-            android:id="@+id/txtHorario"
-            android:layout_width="150dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="14dp"
-            android:text="Precio"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombreRuta"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="411dp"
-            android:layout_height="358dp"
-            android:layout_marginVertical="70sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/btnFavorito"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:background="@drawable/button_background"
-            android:textColor="#FFFFFF"
-            android:text="Guardar Ruta"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHorario"
-            app:layout_constraintVertical_bias="0.239" />
-
-        <EditText
-            android:id="@+id/txtIdRuta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="6dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        tools:context=".pantallaPrincipalFragment">
 
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="794dp">
+
+            <Button
+                android:id="@+id/btnComentar"
+                android:layout_width="183dp"
+                android:layout_height="47dp"
+                android:background="@drawable/button_background"
+                android:text="Comentar"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.937"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtColor"
+                app:layout_constraintVertical_bias="0.126" />
+
+            <Spinner
+                android:id="@+id/cbRutas"
+                android:layout_width="218dp"
+                android:layout_height="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/webView"
+                app:layout_constraintVertical_bias="0.037" />
+
+            <Button
+                android:id="@+id/btnConsultar"
+                android:layout_width="218dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/button_background"
+                android:backgroundTintMode="add"
+                android:text="Consultar"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbRutas"
+                app:layout_constraintVertical_bias="0.035" />
+
+            <EditText
+                android:id="@+id/txtNombreRuta"
+                android:layout_width="182dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="31dp"
+                android:text="Ruta"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnConsultar"
+                app:layout_constraintVertical_bias="0.04" />
+
+            <EditText
+                android:id="@+id/txtEmpresa"
+                android:layout_width="180dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="30dp"
+                android:text="Empresa"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.924"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnConsultar"
+                app:layout_constraintVertical_bias="0.04" />
+
+            <EditText
+                android:id="@+id/txtColor"
+                android:layout_width="181dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="17dp"
+                android:text="Color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.932"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmpresa"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <EditText
+                android:id="@+id/txtHorario"
+                android:layout_width="183dp"
+                android:layout_height="73dp"
+                android:layout_marginTop="14dp"
+                android:text="Precio"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.072"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNombreRuta"
+                app:layout_constraintVertical_bias="0.055" />
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="0dp"
+                android:layout_height="358dp"
+                android:layout_marginVertical="70sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/btnFavorito"
+                android:layout_width="183dp"
+                android:layout_height="47dp"
+                android:background="@drawable/button_background"
+                android:text="Guardar Ruta"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.066"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtHorario"
+                app:layout_constraintVertical_bias="0.123" />
+
+            <EditText
+                android:id="@+id/txtIdRuta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</androidx.core.widget.NestedScrollView>
+

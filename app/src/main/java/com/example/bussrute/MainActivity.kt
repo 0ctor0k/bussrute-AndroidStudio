@@ -60,17 +60,14 @@ class MainActivity : AppCompatActivity() {
         btnMenu.setOnNavigationItemSelectedListener { MenuItem ->
             when (MenuItem.itemId) {
                 R.id.Inicio -> {
-                    supportActionBar?.setTitle("Buscar Ruta")
                     loadFragment(pantallaPrincipalFragment())
                     true
                 }
                 R.id.comentarios -> {
-                    supportActionBar?.setTitle("Comentarios")
                     loadFragment(comentariosFragment())
                     true
                 }
                 R.id.favoritos -> {
-                    supportActionBar?.setTitle("Favoritos")
                     loadFragment(favoritosFragment())
                     true
                 }

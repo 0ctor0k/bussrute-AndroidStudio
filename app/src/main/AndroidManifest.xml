@@ -14,10 +14,13 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bussrute"
+
         tools:targetApi="31">
         <activity
             android:name=".inicio_sesion"
+            android:screenOrientation="portrait"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -33,25 +36,30 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".CrearCuenta"
+            android:screenOrientation="portrait"
             android:exported="false">
 
         </activity>
         <activity
             android:name=".VerificarCorreo"
+            android:screenOrientation="portrait"
             android:exported="false">
 
         </activity>
         <activity
             android:name=".RecuperarContraseña"
+            android:screenOrientation="portrait"
             android:exported="false">
-
         </activity>
         <activity
             android:name=".CrearCuentaGoogle"
+            android:screenOrientation="portrait"
             android:exported="false">
 
         </activity>
