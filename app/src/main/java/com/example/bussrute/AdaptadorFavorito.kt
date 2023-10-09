@@ -59,12 +59,28 @@ class AdaptadorFavorito: BaseAdapter {
         rutPrecio.text = listaFavorito[posicion].rutPrecio
         val rutNumero: TextView = v.findViewById(R.id.txtNumeroRuta)
         rutNumero.text = listaFavorito[posicion].rutNumero
-        val foto: ImageView = v.findViewById(R.id.imgFav)
-        foto.setImageResource(R.drawable.user)
+
+        if (listaFavorito[posicion].rutEmpresa == "FlotaHuila"){
+            val foto: ImageView = v.findViewById(R.id.imgFav)
+            foto.setImageResource(R.drawable.flotahuila)
+        }else if (listaFavorito[posicion].rutEmpresa == "CootransHuila"){
+            val foto: ImageView = v.findViewById(R.id.imgFav)
+            foto.setImageResource(R.drawable.cootranshuila)
+        }else if (listaFavorito[posicion].rutEmpresa == "Coomotor"){
+            val foto: ImageView = v.findViewById(R.id.imgFav)
+            foto.setImageResource(R.drawable.coomotor)
+        }else if (listaFavorito[posicion].rutEmpresa == "CootransNeiva"){
+            val foto: ImageView = v.findViewById(R.id.imgFav)
+            foto.setImageResource(R.drawable.cootransneiva)
+        }else if (listaFavorito[posicion].rutEmpresa == "AutoBuses"){
+            val foto: ImageView = v.findViewById(R.id.imgFav)
+            foto.setImageResource(R.drawable.autobuses)
+        }
+
 
         val item = getItem(posicion)
         val rutaId = listaFavorito[posicion].id
-        // Configurar otros elementos de la vista aquí
+        {}    // Configurar otros elementos de la vista aquí
 
         // Agregar un botón para eliminar y configurar un clic en él
         val eliminarButton = v.findViewById<Button>(R.id.btnEliminarRuta)
