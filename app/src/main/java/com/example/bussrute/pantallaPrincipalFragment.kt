@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
@@ -21,6 +22,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.Response
@@ -86,7 +88,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
 
 
         webView = requireView().findViewById(R.id.webView)
-
+        val nestedScrollView =  requireView().findViewById<NestedScrollView>(R.id.ScrollRutas)
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
@@ -99,7 +101,20 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 webView.evaluateJavascript(javascript, null)
             }
         }
-
+        // Agregar un OnTouchListener al WebView
+        webView.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Bloquear el desplazamiento del WebView
+                    webView.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Permitir que el NestedScrollView procese los eventos táctiles nuevamente
+                    webView.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        }
         val webSettings: WebSettings = webView.settings
         webSettings.javaScriptEnabled = true // Habilita JavaScript en el WebView
         webView.webChromeClient = WebChromeClient() // Permite mostrar alertas y diálogos web
@@ -174,21 +189,21 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")
                 }
-                if (response.getString("rutEmpresa") == "Cootranshuila"){
+                if (response.getString("rutEmpresa") == "CootransHuila"){
                     txtColorRuta.setText("Verde Claro con Blanco")
                 }
-                if (response.getString("rutEmpresa") == "Flotahuila"){
+                if (response.getString("rutEmpresa") == "FlotaHuila"){
                     txtColorRuta.setText("Gris / Plateado")
                 }
-                if (response.getString("rutEmpresa") == "Cootransneiva"){
+                if (response.getString("rutEmpresa") == "CootransNeiva"){
                     txtColorRuta.setText("Blanco con Rojo")
                 }
-                if (response.getString("rutEmpresa") == "AutoBuses S.A.S"){
+                if (response.getString("rutEmpresa") == "AutoBuses"){
                     txtColorRuta.setText("Verde Oscuro")
                 }
 
             }, Response.ErrorListener { error ->
-                Toast.makeText(contenido, error.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(contenido, "Error de conenxion", Toast.LENGTH_SHORT).show()
                 Log.e("Error: ", error.toString())
             })
         queue.add(jsonRutasViz)
@@ -209,21 +224,21 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")
                 }
-                if (response.getString("rutEmpresa") == "Cootranshuila"){
+                if (response.getString("rutEmpresa") == "CootransHuila"){
                     txtColorRuta.setText("Verde Claro con Blanco")
                 }
-                if (response.getString("rutEmpresa") == "Flotahuila"){
+                if (response.getString("rutEmpresa") == "FlotaHuila"){
                     txtColorRuta.setText("Gris / Plateado")
                 }
-                if (response.getString("rutEmpresa") == "Cootransneiva"){
+                if (response.getString("rutEmpresa") == "CootransNeiva"){
                     txtColorRuta.setText("Blanco con Rojo")
                 }
-                if (response.getString("rutEmpresa") == "AutoBuses S.A.S"){
+                if (response.getString("rutEmpresa") == "AutoBuses"){
                     txtColorRuta.setText("Verde Oscuro")
                 }
 
             }, Response.ErrorListener { error ->
-                Toast.makeText(contenido, error.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(contenido, "Error de conenxion", Toast.LENGTH_SHORT).show()
                 Log.e("Error: ", error.toString())
             })
         queue.add(jsonObjectRequest)
@@ -257,7 +272,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                     e.printStackTrace()
                 }
             }, { error ->
-                Toast.makeText(contenido, error.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(contenido, "Error de Conexion", Toast.LENGTH_SHORT).show()
             })
         queue.add(jsonCategoria)
     }
@@ -333,7 +348,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                                 Toast.makeText(requireContext(), "Ruta Añadida a Favoritos", Toast.LENGTH_LONG).show()
                             }, Response.ErrorListener { error ->
                                 progresBar.dismiss()
-                                Toast.makeText(requireContext(), "Error ${error.message}", Toast.LENGTH_LONG).show()
+                                Toast.makeText(requireContext(), "Primero debe consultar una ruta", Toast.LENGTH_LONG).show()
                             }) {
                             override fun getParams(): MutableMap<String, String>? {
                                 val parametros = HashMap<String, String>()

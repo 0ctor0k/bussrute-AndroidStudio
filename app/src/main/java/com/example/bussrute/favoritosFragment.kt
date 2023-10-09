@@ -58,7 +58,7 @@ class favoritosFragment  : Fragment() {
                 }
             },
             { error ->
-                Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Error de Conexion", Toast.LENGTH_LONG).show()
             })
         queve.add(jsonFavorito)
     }

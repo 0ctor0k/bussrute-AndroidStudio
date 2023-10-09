@@ -54,26 +54,46 @@ class AdaptadorFavorito: BaseAdapter {
         var inflater: LayoutInflater = LayoutInflater.from(contexto)
         v = inflater.inflate(R.layout.layoutfavorito, null)
         val rutEmpresa: TextView = v.findViewById(R.id.txtEmpresaRuta)
-        rutEmpresa.text = listaFavorito[posicion].rutEmpresa
+        rutEmpresa.text = "Empresa: "+listaFavorito[posicion].rutEmpresa
         val rutPrecio: TextView = v.findViewById(R.id.txtPrecioRuta)
-        rutPrecio.text = listaFavorito[posicion].rutPrecio
+        rutPrecio.text = "Precio: "+listaFavorito[posicion].rutPrecio
         val rutNumero: TextView = v.findViewById(R.id.txtNumeroRuta)
-        rutNumero.text = listaFavorito[posicion].rutNumero
+        rutNumero.text = "Ruta "+listaFavorito[posicion].rutNumero
 
         if (listaFavorito[posicion].rutEmpresa == "FlotaHuila"){
             val foto: ImageView = v.findViewById(R.id.imgFav)
+            val layoutParams = foto.layoutParams
+            layoutParams.width = 300 // Ancho fijo en píxeles o dp
+            layoutParams.height = 300 // Alto fijo en píxeles o dp
+            foto.layoutParams = layoutParams
             foto.setImageResource(R.drawable.flotahuila)
         }else if (listaFavorito[posicion].rutEmpresa == "CootransHuila"){
             val foto: ImageView = v.findViewById(R.id.imgFav)
+            val layoutParams = foto.layoutParams
+            layoutParams.width = 300 // Ancho fijo en píxeles o dp
+            layoutParams.height = 300 // Alto fijo en píxeles o dp
+            foto.layoutParams = layoutParams
             foto.setImageResource(R.drawable.cootranshuila)
         }else if (listaFavorito[posicion].rutEmpresa == "Coomotor"){
             val foto: ImageView = v.findViewById(R.id.imgFav)
+            val layoutParams = foto.layoutParams
+            layoutParams.width = 300 // Ancho fijo en píxeles o dp
+            layoutParams.height = 300 // Alto fijo en píxeles o dp
+            foto.layoutParams = layoutParams
             foto.setImageResource(R.drawable.coomotor)
         }else if (listaFavorito[posicion].rutEmpresa == "CootransNeiva"){
             val foto: ImageView = v.findViewById(R.id.imgFav)
+            val layoutParams = foto.layoutParams
+            layoutParams.width = 300 // Ancho fijo en píxeles o dp
+            layoutParams.height = 300 // Alto fijo en píxeles o dp
+            foto.layoutParams = layoutParams
             foto.setImageResource(R.drawable.cootransneiva)
         }else if (listaFavorito[posicion].rutEmpresa == "AutoBuses"){
             val foto: ImageView = v.findViewById(R.id.imgFav)
+            val layoutParams = foto.layoutParams
+            layoutParams.width = 300 // Ancho fijo en píxeles o dp
+            layoutParams.height = 300 // Alto fijo en píxeles o dp
+            foto.layoutParams = layoutParams
             foto.setImageResource(R.drawable.autobuses)
         }
 
