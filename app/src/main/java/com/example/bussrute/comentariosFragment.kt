@@ -19,6 +19,7 @@ class comentariosFragment : Fragment() {
 
     private lateinit var listarComentario: MutableList<Comentario>
     private lateinit var listaViewComentario: ListView
+    private lateinit var listaComentario: List<Comentario>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

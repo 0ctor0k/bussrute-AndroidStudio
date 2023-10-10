@@ -7,7 +7,12 @@
 
     <ListView
         android:id="@+id/listaComentarios"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="64dp"/>
+        android:dividerHeight="15dp"
+        android:divider="@android:color/background_light"
+        android:paddingTop="56dp" />
+
+
+
 </FrameLayout>

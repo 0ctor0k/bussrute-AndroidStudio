@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import com.example.bussrute.modelo.Comentario
 
@@ -49,14 +50,14 @@ class Adaptador: BaseAdapter {
         v = inflater.inflate(R.layout.layoutcomentario, null)
         val comDescripcion: TextView = v.findViewById(R.id.comDescripcion)
         comDescripcion.text = listaComentario[posicion].comDescripcion
-        val comValoracion: TextView = v.findViewById(R.id.comValoracion)
-        comValoracion.text = listaComentario[posicion].comValoracion.toString()
+        val comValoracion: RatingBar = v.findViewById(R.id.ratingBar)
+        comValoracion.rating = listaComentario[posicion].comValoracion.toFloat()
         val comUsuario: TextView = v.findViewById(R.id.comUsuario)
         comUsuario.text = listaComentario[posicion].comUsuario.toString()
         val comRuta: TextView = v.findViewById(R.id.comRuta)
         comRuta.text = listaComentario[posicion].comRuta
         val foto: ImageView = v.findViewById(R.id.imgFoto)
-        foto.setImageResource(R.drawable.user)
+        foto.setImageResource(R.drawable.definitive)
 
         return v;
 

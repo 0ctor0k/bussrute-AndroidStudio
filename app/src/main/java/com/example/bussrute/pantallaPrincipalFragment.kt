@@ -1,5 +1,6 @@
 package com.example.bussrute
 
+import SharedViewModel
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.app.ProgressDialog
@@ -21,9 +22,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -61,6 +64,9 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
     private var idRuta: Int = 0
     private var numRuta: Int = 0
     private var urlBase = "https://bussrute.pythonanywhere.com/"
+    lateinit var btnComentar: Button
+    lateinit var idRutaCom: EditText
+    val model: SharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,6 +81,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
         txtHorarioRuta.isEnabled = false
         txtColorRuta = requireView().findViewById(R.id.txtColor)
         txtColorRuta.isEnabled = false
+
 
         cbRuta = requireView().findViewById(R.id.cbRutas)
         val rutaFavorita = arguments?.getString("ruta")
@@ -129,6 +136,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
         btnConsultar = requireView().findViewById(R.id.btnConsultar)
         btnFavorito = requireView().findViewById(R.id.btnFavorito)
         listaRutas = mutableListOf<Ruta>()
+        btnComentar = requireView().findViewById(R.id.btnComentar)
 
 
 
@@ -151,6 +159,20 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
             GuardarFavorito() }
         btnConsultar.setOnClickListener {
             consultar() }
+        btnComentar.setOnClickListener {
+
+            // Crear una nueva instancia del fragmento que deseas mostrar (FragmentoB en este caso)
+            val fragmentoB = agregarComentarioFragment()
+
+            // Realizar la transacción del fragmento
+            val fragmentManager = (contenido as AppCompatActivity).supportFragmentManager
+
+            // Reemplazar el fragmento anterior con el nuevo fragmento
+            fragmentManager.beginTransaction()
+                .replace(R.id.pantallaPrincipalRuta, fragmentoB)
+                .addToBackStack(null) // Opcional: Agregar la transacción a la pila de retroceso
+                .commit()
+        }
 
     }
 
@@ -221,6 +243,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 txtNombreRuta.setText(response.getString("rutNumero"))
                 txtHorarioRuta.setText(response.getString("rutPrecio")+" COP")
                 txtIdRuta.setText(response.getString("id"))
+
                 if (response.getString("rutEmpresa") == "Coomotor"){
                     txtColorRuta.setText("Azul")
                 }
@@ -236,6 +259,8 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 if (response.getString("rutEmpresa") == "AutoBuses"){
                     txtColorRuta.setText("Verde Oscuro")
                 }
+                model.selectedId.value = response.getString("id")
+
 
             }, Response.ErrorListener { error ->
                 Toast.makeText(contenido, "Error de conenxion", Toast.LENGTH_SHORT).show()
