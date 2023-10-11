@@ -92,6 +92,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCorreoUsuarioGoogle" />
+            app:layout_constraintTop_toBottomOf="@+id/txtCorreoUsuarioGoogle"
+            android:layout_marginTop="40dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

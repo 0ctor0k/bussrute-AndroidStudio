@@ -59,7 +59,8 @@
             app:layout_constraintHorizontal_bias="0.56"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCodigoVeri"
-            app:layout_constraintVertical_bias="0.44" />
+            app:layout_constraintVertical_bias="0.44"
+            android:layout_marginTop="40dp"/>
 
         <Button
             android:id="@+id/btnCancelarVerificacion"
@@ -71,8 +72,10 @@
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.56"
             app:layout_constraintTop_toBottomOf="@+id/txtCodigoVeri"
-            app:layout_constraintVertical_bias="0.44" />
+            app:layout_constraintVertical_bias="0.44"
+            android:layout_marginTop="40dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

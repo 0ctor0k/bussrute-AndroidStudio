@@ -2,11 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:state_pressed="true">
     <shape android:shape="rectangle">
+        <corners android:radius="50dp" />
         <solid android:color="#E81C2E " /> <!-- Color cuando se presiona el botón -->
     </shape>
 </item>
 <item>
     <shape android:shape="rectangle">
+        <corners android:radius="80dp" />
         <solid android:color="#46668d" /> <!-- Color normal del botón -->
     </shape>
 </item>

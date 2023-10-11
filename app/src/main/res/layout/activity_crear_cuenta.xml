@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CrearCuenta">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,88 +34,84 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <TextView
-            android:id="@+id/tituloNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="20dp"
-            android:text="Nombre de usuario"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcomeMessageTextView" />
-
-        <TextView
-            android:id="@+id/tituloEmailUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="32dp"
-            android:text="Correo Electronico"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNombreUsuario" />
-
-        <EditText
-            android:id="@+id/txtCreaContraseña"
-            android:layout_width="308dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="20dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="306dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="60dp"
             android:hint="Ingrese su contraseña"
-            android:inputType="textPassword"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tituloPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtCreaContraseña"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tituloPassword"
+            android:id="@+id/passwordValidationMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="32dp"
-            android:text="Contraseña"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCorreoUsuario" />
+            android:textColor="@android:color/holo_red_dark"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-        <EditText
-            android:id="@+id/txtCorreoUsuario"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
             android:layout_width="307dp"
             android:layout_height="48dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:hint="Ingrese su correo electrónico"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tituloEmailUsuario" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
-        <EditText
-            android:id="@+id/txtNombreUsuario"
-            android:layout_width="309dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="28dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtCorreoUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="311dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="52dp"
             android:hint="Ingrese su nombre de usuario"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.519"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tituloNombre" />
+            app:layout_constraintTop_toBottomOf="@+id/welcomeMessageTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnVerificarCuenta"
             android:layout_width="167dp"
             android:layout_height="45dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/button_background"
             android:text="Verificar Cuenta"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCreaContraseña"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintVertical_bias="0.5">
+        </Button>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

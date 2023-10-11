@@ -4,9 +4,13 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -14,6 +18,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.textfield.TextInputEditText
 import java.security.MessageDigest
 
 class CrearCuenta : AppCompatActivity() {
@@ -36,6 +41,30 @@ class CrearCuenta : AppCompatActivity() {
 
         btnVerificarCuenta.setOnClickListener {
             agregarUsuario()
+        }
+
+        val passwordValidationMessage = findViewById<TextView>(R.id.passwordValidationMessage)
+
+        txtContraseña.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (s.length < 8 || !s.any { it.isDigit() } || !s.any { it.isLetter() }) {
+                    passwordValidationMessage.text = "La contraseña debe tener al menos 8 caracteres y \ncontener letras y números."
+                    btnVerificarCuenta.isEnabled = false
+                } else {
+                    passwordValidationMessage.text = ""
+                    btnVerificarCuenta.isEnabled = true
+                }
+            }
+        })
+
+        txtContraseña.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && txtContraseña.text.toString().isEmpty()) {
+                passwordValidationMessage.text = ""
+            }
         }
 
     }
