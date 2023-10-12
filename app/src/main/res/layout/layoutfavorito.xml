@@ -9,10 +9,12 @@
         android:id="@+id/txtEmpresaRuta"
         android:layout_width="221dp"
         android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
         android:text="TextView"
         android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgFav"
         app:layout_constraintTop_toTopOf="@+id/imgFav" />
 
@@ -20,12 +22,11 @@
         android:id="@+id/txtPrecioRuta"
         android:layout_width="108dp"
         android:layout_height="31dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/imgFav"
-        app:layout_constraintStart_toEndOf="@+id/imgFav"
+        app:layout_constraintStart_toStartOf="@+id/btnVizualizarRuta"
         app:layout_constraintTop_toBottomOf="@+id/btnVizualizarRuta" />
 
     <TextView
@@ -35,6 +36,8 @@
         android:layout_marginStart="4dp"
         android:text="TextView"
         android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/btnEliminarRuta"
+        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toEndOf="@+id/txtPrecioRuta"
         app:layout_constraintTop_toTopOf="@+id/txtPrecioRuta" />
 
@@ -42,39 +45,37 @@
         android:id="@+id/btnVizualizarRuta"
         android:layout_width="102dp"
         android:layout_height="35dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_background"
         android:text="Ver Ruta"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/imgFav"
+        app:layout_constraintStart_toStartOf="@+id/txtEmpresaRuta"
         app:layout_constraintTop_toBottomOf="@+id/txtEmpresaRuta" />
 
     <Button
         android:id="@+id/btnEliminarRuta"
         android:layout_width="114dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_background"
         android:text="Eliminar"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/btnVizualizarRuta"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmpresaRuta"
         app:layout_constraintStart_toEndOf="@+id/btnVizualizarRuta"
         app:layout_constraintTop_toBottomOf="@+id/txtEmpresaRuta"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imgFav"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
