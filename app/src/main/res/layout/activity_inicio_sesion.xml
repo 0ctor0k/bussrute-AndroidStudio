@@ -28,8 +28,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
-            android:layout_width="352dp"
-            android:layout_height="50dp"
+            android:layout_width="348dp"
+            android:layout_height="71dp"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,14 +38,14 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtCorreoONombre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:hint="Nombre de usuario o Correo" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
-            android:layout_width="347dp"
-            android:layout_height="58dp"
+            android:layout_width="348dp"
+            android:layout_height="71dp"
             android:layout_marginTop="20dp"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtContraseña"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:hint="Contraseña"
                 android:inputType="textPassword" />
 
@@ -102,11 +102,11 @@
             android:id="@+id/btnGoogle"
             android:layout_width="215dp"
             android:layout_height="47dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:background="#DC3545"
             android:text="Google"
             android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orLoginWithTextView" />
