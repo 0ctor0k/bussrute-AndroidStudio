@@ -115,6 +115,7 @@ class inicio_sesion : AppCompatActivity() {
                                             editor.apply()
                                             val intent = Intent(this, MainActivity::class.java)
                                             startActivity(intent)
+                                            finish()
                                             return@JsonArrayRequest
                                         }
                                     }
