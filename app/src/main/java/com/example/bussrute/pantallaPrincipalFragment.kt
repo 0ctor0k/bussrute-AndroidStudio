@@ -267,6 +267,7 @@ class pantallaPrincipalFragment : Fragment(R.layout.fragment_pantalla_principal)
                 Log.e("Error: ", error.toString())
             })
         queue.add(jsonObjectRequest)
+
     }
 
     private fun obtenerRutas() {

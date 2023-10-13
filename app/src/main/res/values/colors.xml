@@ -4,5 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="normal_color">#FF5733</color>
     <color name="pressed_color">#FFC300</color>
-    <color name="yellow">#FFFF00</color>
+    <color name="yellow">#FFCC00</color>
 </resources>

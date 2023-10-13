@@ -75,18 +75,18 @@
 
         <EditText
             android:id="@+id/rutaCom"
-            android:layout_width="129dp"
-            android:layout_height="46dp"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:enabled="false"
-            android:hint="global"
+            android:hint="Global"
             android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.904"
+            app:layout_constraintHorizontal_bias="0.939"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.124" />
+            app:layout_constraintVertical_bias="0.123" />
 
         <EditText
             android:id="@+id/descripCom"

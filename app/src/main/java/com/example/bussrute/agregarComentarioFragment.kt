@@ -63,16 +63,23 @@ class agregarComentarioFragment : Fragment() {
         idusu = view.findViewById(R.id.idusu)
         idRutaCom = view.findViewById(R.id.idRutaCom)
 
-
         model.selectedId.observe(viewLifecycleOwner, Observer { id ->
-
                 idRutaCom.setText(id)
                 obtenerRuta(id)
-
-
         })
 
-        agregarCom.setOnClickListener { agregar() }
+        agregarCom.setOnClickListener {
+            if (descripCom.text.toString().isNotEmpty() && valoracionCom.rating != 0f) {
+                agregar()
+            } else {
+                if (descripCom.text.toString().isEmpty()) {
+                    Toast.makeText(requireActivity(), "Agrega un Comentario", Toast.LENGTH_LONG).show()
+                }
+                if (valoracionCom.rating == 0f) {
+                    Toast.makeText(requireActivity(), "Agrega una Valoración", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
 
         // Obtén el nombre del usuario desde el servidor
         val sharedPreferences = this.requireActivity().getSharedPreferences("MyApp", Context.MODE_PRIVATE)
@@ -107,10 +114,9 @@ class agregarComentarioFragment : Fragment() {
         // Añade la solicitud a la cola de solicitudes
         requestQueue.add(request)
 
-
-
     }
     fun obtenerRuta(id: String) {
+
         val url = "https://bussrute.pythonanywhere.com/rutaAndroid/$id"
         val queue = Volley.newRequestQueue(requireContext())
         val jsonObjectRequest = JsonObjectRequest(
@@ -133,6 +139,7 @@ class agregarComentarioFragment : Fragment() {
         queue.add(jsonObjectRequest)
     }
     private fun agregar() {
+
         val url = "https://bussrute.pythonanywhere.com/comentario"
         val queve = Volley.newRequestQueue(requireActivity())
         val progresBar = ProgressDialog.show(requireActivity(), "Enviando Datos...", "espere por favor")
@@ -161,7 +168,6 @@ class agregarComentarioFragment : Fragment() {
     }
 
     fun clean(){
-
         idRutaCom.text.clear()
         rutaCom.text.clear()
         descripCom.text.clear()
