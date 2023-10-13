@@ -64,9 +64,14 @@ class agregarComentarioFragment : Fragment() {
         idRutaCom = view.findViewById(R.id.idRutaCom)
 
         model.selectedId.observe(viewLifecycleOwner, Observer { id ->
+            if (id != null) {
                 idRutaCom.setText(id)
                 obtenerRuta(id)
+            } else {
+                idRutaCom.setHint("Global")
+            }
         })
+
 
         agregarCom.setOnClickListener {
             if (descripCom.text.toString().isNotEmpty() && valoracionCom.rating != 0f) {
@@ -174,5 +179,9 @@ class agregarComentarioFragment : Fragment() {
         valoracionCom.rating = 0f
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        model.selectedId.value = null
+    }
 
 }
